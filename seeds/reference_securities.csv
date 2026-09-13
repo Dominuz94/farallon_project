@@ -1,0 +1,16 @@
+security_id,ticker,security_name,asset_class,currency,is_active
+SEC0001,AAPL,Apple Inc,Equity,USD,Y
+SEC0002,MSFT,Microsoft Corp,Equity,USD,Y
+SEC0003,NESN,Nestle SA,Equity,CHF,Y
+SEC0004,BARC,Barclays PLC,Equity,GBP,Y
+SEC0005,T2Y30,US Treasury 2Y,Sovereign Bond,USD,Y
+SEC0006,BUND10,German Bund 10Y,Sovereign Bond,EUR,Y
+SEC0007,PETR4,Petrobras PN,Equity,BRL,Y
+SEC0008,XOMCB,Exxon Corp Bond 2031,Corporate Bond,USD,Y
+SEC0009,7203T,Toyota Motor Corp,Equity,JPY,Y
+SEC0010,RELEQ,Prologis REIT,Real Estate,USD,Y
+SEC0011,PCO01,Private Co Direct Stake A,Private,USD,Y
+SEC0012,GSCB,Goldman Sachs Corp Bond,Corporate Bond,USD,Y
+SEC0013,VODCB,Vodafone Corp Bond,Corporate Bond,GBP,Y
+SEC0014,SIEEQ,Siemens AG,Equity,EUR,Y
+SEC0015,DECOM,Legacy Holding (Delisted),Equity,USD,N

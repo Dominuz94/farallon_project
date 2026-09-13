@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: fct_trades
+    description: >
+      This is the certified business fact table containing all valid historical trades.
+      
+      GRAIN: The explicit grain of this table is 'trade_id'. Each row represents the 
+      latest, deduplicated version of a unique trade execution.
+    columns:
+      - name: trade_id
+        description: The unique identifier for the transaction. This column forms the primary grain of the table.
+        tests:
+          - unique
+          - not_null
+      - name: side
+        description: Buy or Sell designation.
+        tests:
+          - accepted_values:
+              values: ['BUY', 'SELL']

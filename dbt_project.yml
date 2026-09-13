@@ -1,0 +1,30 @@
+name: 'farallon_de_takehome'
+version: '1.0.0'
+config-version: 2
+
+profile: 'farallon_de_takehome'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+clean-targets: ["target", "dbt_packages"]
+
+seeds:
+  farallon_de_takehome:
+    positions_20260131:
+      +delimiter: ";"
+
+# Medallion layering: bronze = thin, standardized raw pass-through;
+# silver = resolved/enriched/quarantined, single source of truth;
+# gold = business-ready, dimensionally modeled marts.
+models:
+  farallon_de_takehome:
+    bronze:
+      +materialized: view
+    silver:
+      +materialized: ephemeral
+    gold:
+      +materialized: table
+
+vars:
+  default_reporting_currency: 'USD'
