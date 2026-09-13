@@ -16,7 +16,7 @@ During pipeline construction, two material data ambiguities were identified and 
 
 ---
 
-## 🤖 Things to improve/did not complete:
+## ⚠️ Things to improve/did not complete:
 I think this logic is better for the models\gold\dim_security.sql model
 ```sql
 {{ config(materialized='table') }}
