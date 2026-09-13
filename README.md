@@ -16,6 +16,21 @@ During pipeline construction, two material data ambiguities were identified and 
 
 ---
 
+## 🤖 Things to improve/did not complete:
+I think this logic is better for the models\gold\dim_security.sql model
+```sql
+{{ config(materialized='table') }}
+
+select
+    security_id,
+    ticker,
+    security_name,
+    asset_class,
+    currency
+from {{ ref('stg_securities') }}
+where is_active = true  -- Manually enforcing validity rules here instead
+```
+
 ## 📖 Setup & Reference Documentation
 *   For the original project briefing, repository scaffolding details, and environment package configurations, please refer directly to the [README_SETUP.md](./README_SETUP.md) file.
 *   For my complete technical post-mortem analysis, production incident runbook, scalability breakdowns, and Task 6 time-weighted return compounding judgments, please refer directly to my [DESIGN_NOTES.md](./DESIGN_NOTES.md) file.
