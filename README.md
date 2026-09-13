@@ -1,12 +1,12 @@
 # Farallon Data Engineering Assessment Solution
 
-## 🛠️ Solution Overview
+## Data Ambiguities & Assumptions
+During pipeline construction, two material data ambiguities were identified and resolved with the following explicit engineering assumptions:
 
-*   **Bronze Layer (`models/bronze/`)**: Implements clean staging views utilizing dynamic Jinja templating to automatically union and discover raw trade daily snapshot files.
-*   **Silver Layer (`models/silver/`)**: Provides our single source of truth (`int_trades`) which handles multi-day version deduplication, asset master enrichment, and maps out a clean row-level validation status.
-*   **Quarantine Component (`models/silver/`)**: Isolates broken data streams into a separate `int_quarantined_trades` destination for strict data quality tracking without dropping records.
-*   **Gold Layer (`models/gold/`)**: Materializes fully certified presentation tables (`fct_trades`, `dim_security`) and an explicitly documented schema configuration detailing the fact table's unique grain.
-*   **Testing Suite (`tests/`)**: Deploys a custom source-to-target row reconciliation script (`assert_trade_counts_reconcile.sql`) confirming zero historical data leakage across our operational boundaries.
+*   **Ambiguity 1: Today's `is_active` status applied to historical trades.** 
+    *   *Assumption/Treatment:* The `reference_securities.is_active` flag reflects status as of today’s extract, not the historical execution date. To protect historical ledger accounting from retroactive corruption (e.g., a trade executed legally in January shouldn't be deleted because the stock delisted in February), our pipeline preserves the record but routes it to `int_quarantined_trades`. This keeps our certified Gold tables free from downstream reporting volatility while allowing the business to audit compliance.
+*   **Ambiguity 2: Missing `trade_currency` values.**
+    *   *Assumption/Treatment:* Where `trade_currency` was missing, the pipeline defaults to the security’s home currency (`security_currency`). While dual-listed instruments can settle in alternative currencies in practice, defaulting to the asset's primary issuing currency is a standard data-cleansing heuristic that maintains continuity in our compounding logic. Any record falling outside our standard reporting threshold is safely flagged via our `is_reporting_currency` boolean block.
 
 ---
 
